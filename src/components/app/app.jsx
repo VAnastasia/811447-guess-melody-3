@@ -6,7 +6,6 @@ const App = ({errorsAmount}) => {
   return <WelcomeScreen errorsAmount={errorsAmount} />;
 };
 
-
 App.propTypes = {
   errorsAmount: propTypes.number.isRequired,
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
 
-
 const WelcomeScreen = ({errorsAmount}) => {
   return (
     <section className="welcome">
