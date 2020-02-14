@@ -10,10 +10,24 @@ import {GameType} from "../../const.js";
 class App extends PureComponent {
   constructor(props) {
     super(props);
+    this.onWelcomeButtonClick = this.onWelcomeButtonClick.bind(this);
+    this.onAnswer = this.onAnswer.bind(this);
 
     this.state = {
       step: -1,
     };
+  }
+
+  onWelcomeButtonClick() {
+    this.setState({
+      step: 0,
+    });
+  }
+
+  onAnswer() {
+    this.setState((prevState) => ({
+      step: prevState.step + 1,
+    }));
   }
 
   _renderGameScreen() {
@@ -25,11 +39,7 @@ class App extends PureComponent {
       return (
         <WelcomeScreen
           errorsAmount={errorsAmount}
-          onWelcomeButtonClick={() => {
-            this.setState({
-              step: 0,
-            });
-          }}
+          onWelcomeButtonClick={this.onWelcomeButtonClick}
         />
       );
     }
@@ -40,22 +50,14 @@ class App extends PureComponent {
           return (
             <ArtistQuestionScreen
               question={question}
-              onAnswer={() => {
-                this.setState((prevState) => ({
-                  step: prevState.step + 1,
-                }));
-              }}
+              onAnswer={this.onAnswer}
             />
           );
         case GameType.GENRE:
           return (
             <GenreQuestionScreen
               question={question}
-              onAnswer={() => {
-                this.setState((prevState) => ({
-                  step: prevState.step + 1,
-                }));
-              }}
+              onAnswer={this.onAnswer}
             />
           );
       }
