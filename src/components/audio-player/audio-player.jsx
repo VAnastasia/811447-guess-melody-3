@@ -50,7 +50,9 @@ export default class AudioPlayer extends PureComponent {
   }
 
   handlePlayButtonClick() {
+    const {onPlayButtonClick} = this.props;
     this.setState({isPlaying: !this.state.isPlaying});
+    onPlayButtonClick();
   }
 
   render() {
@@ -75,7 +77,7 @@ export default class AudioPlayer extends PureComponent {
 
   componentDidUpdate() {
     const audio = this._audioRef.current;
-    if (this.state.isPlaying) {
+    if (this.props.isPlaying) {
       audio.play();
     } else {
       audio.pause();
@@ -86,5 +88,5 @@ export default class AudioPlayer extends PureComponent {
 AudioPlayer.propTypes = {
   isPlaying: propTypes.bool.isRequired,
   src: propTypes.string.isRequired,
-  // onPlayButtonClick: propTypes.func.isRequired,
+  onPlayButtonClick: propTypes.func.isRequired,
 };

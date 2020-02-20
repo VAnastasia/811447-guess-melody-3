@@ -5,9 +5,19 @@ const withAudioPlayer = (Component) => {
   class WithAudioPlayer extends PureComponent {
     constructor(props) {
       super(props);
+      this.handleButtonClick = this.handleButtonClick.bind(this);
 
       this.state = {
         activePlayerId: 0,
+      };
+    }
+
+    handleButtonClick(id) {
+      const {activePlayerId} = this.state;
+      return () => {
+        this.setState({
+          activePlayerId: activePlayerId === id ? -1 : id
+        });
       };
     }
 
@@ -21,9 +31,7 @@ const withAudioPlayer = (Component) => {
             <AudioPlayer
               src={src}
               isPlaying={id === activePlayerId}
-              onPlayButtonClick={() => this.setState({
-                activePlayerId: activePlayerId === id ? -1 : id
-              })}
+              onPlayButtonClick={this.handleButtonClick(id)}
             />
           );
         }}
