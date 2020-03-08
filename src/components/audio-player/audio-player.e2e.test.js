@@ -5,7 +5,7 @@ import AudioPlayer from "./audio-player.jsx";
 
 configure({adapter: new Adapter()});
 
-const mockSrc = `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`;
+// const mockSrc = `https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg`;
 
 it(`AudioPlayer button be pressed`, () => {
   const buttonHandler = jest.fn();
@@ -13,9 +13,12 @@ it(`AudioPlayer button be pressed`, () => {
   const audioPlayer = mount(
       <AudioPlayer
         isPlaying={true}
+        isLoading={true}
         onPlayButtonClick={buttonHandler}
-        src={mockSrc}
-      />
+        // src={mockSrc}
+      >
+        <audio />
+      </AudioPlayer>
   );
 
   const button = audioPlayer.find(`.track__button`);
