@@ -9,7 +9,7 @@ const withUserAnswer = (Component) => {
 
       this.state = {
         answers: new Array(props.question.answers.length).fill(false),
-      }
+      };
 
       this.handleAnswer = this.handleAnswer.bind(this);
       this.handleChange = this.handleChange.bind(this);
