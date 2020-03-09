@@ -7,6 +7,8 @@ import {ActionCreator} from "../../reducer.js";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
+import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
+import WinScreen from "../win-screen/win-screen.jsx";
 import GameScreen from "../game-screen/game-screen.jsx";
 import {GameType} from "../../const.js";
 import withActivePlayer from "../../hocs/with-active-player/with-active-player.jsx";
@@ -21,15 +23,35 @@ class App extends PureComponent {
       questions,
       onUserAnswer,
       onWelcomeButtonClick,
+      mistakes,
+      resetGame,
       step,
     } = this.props;
     const question = questions[step];
 
-    if (step === -1 || step >= questions.length) {
+    if (step === -1) {
       return (
         <WelcomeScreen
           errorsAmount={errorsAmount}
           onWelcomeButtonClick={onWelcomeButtonClick}
+        />
+      );
+    }
+
+    if (mistakes >= errorsAmount) {
+      return (
+        <GameOverScreen
+          onReplayButtonClick={resetGame}
+        />
+      );
+    }
+
+    if (step >= questions.length) {
+      return (
+        <WinScreen
+          questionsCount={questions.length}
+          mistakesCount={mistakes}
+          onReplayButtonClick={resetGame}
         />
       );
     }
@@ -96,12 +118,15 @@ App.propTypes = {
   onUserAnswer: propTypes.func.isRequired,
   onWelcomeButtonClick: propTypes.func.isRequired,
   step: propTypes.number.isRequired,
+  mistakes: propTypes.number.isRequired,
+  resetGame: propTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   step: state.step,
   errorsAmount: state.errorsAmount,
   questions: state.questions,
+  mistakes: state.mistakes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -111,6 +136,9 @@ const mapDispatchToProps = (dispatch) => ({
   onUserAnswer(question, answer) {
     dispatch(ActionCreator.incrementMistake(question, answer));
     dispatch(ActionCreator.incrementStep());
+  },
+  resetGame() {
+    dispatch(ActionCreator.resetGame());
   },
 });
 
