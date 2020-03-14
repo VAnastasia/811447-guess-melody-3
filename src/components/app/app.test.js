@@ -84,6 +84,8 @@ describe(`Render App`, () => {
         .create(
             <Provider store={store}>
               <App
+                authorizationStatus={AuthorizationStatus.NO_AUTH}
+                login={() => {}}
                 errorsAmount={3}
                 mistakes={0}
                 questions={questions}
