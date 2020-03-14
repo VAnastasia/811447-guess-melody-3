@@ -4,7 +4,7 @@ import withAudio from "../with-audio/with-audio.jsx";
 
 const AudioPlayer = withAudio(Player);
 
-const withAudioPlayer = (Component) => {
+const withActivePlayer = (Component) => {
   class WithAudioPlayer extends PureComponent {
     constructor(props) {
       super(props);
@@ -47,4 +47,4 @@ const withAudioPlayer = (Component) => {
   return WithAudioPlayer;
 };
 
-export default withAudioPlayer;
+export default withActivePlayer;
